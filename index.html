@@ -14,118 +14,229 @@
       }
     </style>
   </head>
-  <body
-    class="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
-  >
-    <div
-      class="max-w-7xl w-full bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border border-slate-700/50"
-    >
+  <body class="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+
+  
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/90 backdrop-blur-md">
+      <div class="bg-slate-800 border border-slate-700 rounded-3xl shadow-2xl p-10 w-full max-w-md">
+        <h2 class="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-8">
+          🎬 ChaiCode Cinema
+        </h2>
+
+
+        <div class="flex rounded-2xl bg-slate-900/60 p-1 mb-8 gap-1">
+          <button id="tabLogin" onclick="switchTab('login')"
+            class="flex-1 py-2.5 rounded-xl font-semibold text-sm transition-all bg-emerald-500 text-white shadow">
+            Login
+          </button>
+          <button id="tabRegister" onclick="switchTab('register')"
+            class="flex-1 py-2.5 rounded-xl font-semibold text-sm transition-all text-slate-400 hover:text-white">
+            Register
+          </button>
+        </div>
+
+     
+        <div id="loginForm">
+          <div class="space-y-4">
+            <input id="loginEmail" type="email" placeholder="Email"
+              class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition" />
+            <input id="loginPassword" type="password" placeholder="Password"
+              class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition" />
+            <p id="loginError" class="text-rose-400 text-sm hidden"></p>
+            <button onclick="doLogin()"
+              class="w-full py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl font-bold text-white hover:opacity-90 transition active:scale-95">
+              Login →
+            </button>
+          </div>
+        </div>
+
+     
+        <div id="registerForm" class="hidden">
+          <div class="space-y-4">
+            <input id="regName" type="text" placeholder="Full name"
+              class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition" />
+            <input id="regEmail" type="email" placeholder="Email"
+              class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition" />
+            <input id="regPassword" type="password" placeholder="Password (min 6 chars)"
+              class="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition" />
+            <p id="regError" class="text-rose-400 text-sm hidden"></p>
+            <p id="regSuccess" class="text-emerald-400 text-sm hidden"></p>
+            <button onclick="doRegister()"
+              class="w-full py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl font-bold text-white hover:opacity-90 transition active:scale-95">
+              Create Account
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+    <div id="mainUI" class="hidden max-w-7xl w-full bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border border-slate-700/50">
+
+  
+      <div class="flex justify-end mb-4 gap-4 items-center">
+        <span id="userBadge" class="text-sm font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 rounded-full"></span>
+        <button onclick="doLogout()" class="text-xs text-slate-500 hover:text-rose-400 transition">Logout</button>
+      </div>
+
+    
       <div class="text-center mb-10">
-        <h1
-          class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4 tracking-tight"
-        >
-          ChaiCode Cinema - Now Showing<br />
-          <br />
-          <span class="text-red-400">
-            <span class="font-bold">Dhurandhar The Revenge</span>
-          </span>
+        <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4 tracking-tight">
+          ChaiCode Cinema - Now Showing<br /><br />
+          <span class="text-red-400"><span class="font-bold">Dhurandhar The Revenge</span></span>
         </h1>
         <p class="text-slate-400 text-lg">Jassi ko ghar ki yaad kyu nhi aai?</p>
       </div>
 
+   
       <div class="flex justify-center mb-10">
-        <div
-          class="bg-slate-900/50 rounded-full px-6 py-3 border border-slate-700 flex gap-8 items-center"
-        >
+        <div class="bg-slate-900/50 rounded-full px-6 py-3 border border-slate-700 flex gap-8 items-center">
           <div class="flex items-center gap-3">
-            <div
-              class="w-4 h-4 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.6)]"
-            ></div>
-            <span class="text-slate-300 font-medium tracking-wide"
-              >Available</span
-            >
+            <div class="w-4 h-4 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.6)]"></div>
+            <span class="text-slate-300 font-medium tracking-wide">Available</span>
           </div>
           <div class="w-px h-6 bg-slate-700"></div>
           <div class="flex items-center gap-3">
-            <div
-              class="w-4 h-4 rounded-full bg-rose-500/20 border border-rose-500/50"
-            ></div>
+            <div class="w-4 h-4 rounded-full bg-rose-500/20 border border-rose-500/50"></div>
             <span class="text-slate-400 font-medium tracking-wide">Booked</span>
           </div>
         </div>
       </div>
 
+  
       <div class="flex justify-center">
-        <div
-          class="bg-slate-900/40 p-8 rounded-2xl border border-slate-700/50 shadow-inner"
-        >
-          <table
-            id="tbl"
-            class="border-separate border-spacing-4 mx-auto"
-          ></table>
+        <div class="bg-slate-900/40 p-8 rounded-2xl border border-slate-700/50 shadow-inner">
+          <table id="tbl" class="border-separate border-spacing-4 mx-auto"></table>
         </div>
       </div>
     </div>
 
     <script>
+
+      let accessToken = localStorage.getItem('bmt_token');
+      let currentUser = JSON.parse(localStorage.getItem('bmt_user') || 'null');
+
+      function switchTab(tab) {
+        const isLogin = tab === 'login';
+        document.getElementById('loginForm').classList.toggle('hidden', !isLogin);
+        document.getElementById('registerForm').classList.toggle('hidden', isLogin);
+        document.getElementById('tabLogin').className = `flex-1 py-2.5 rounded-xl font-semibold text-sm transition-all ${isLogin ? 'bg-emerald-500 text-white shadow' : 'text-slate-400 hover:text-white'}`;
+        document.getElementById('tabRegister').className = `flex-1 py-2.5 rounded-xl font-semibold text-sm transition-all ${!isLogin ? 'bg-emerald-500 text-white shadow' : 'text-slate-400 hover:text-white'}`;
+      }
+
+      async function doRegister() {
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const errEl = document.getElementById('regError');
+        const okEl = document.getElementById('regSuccess');
+        errEl.classList.add('hidden');
+        okEl.classList.add('hidden');
+
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          errEl.textContent = data.error;
+          errEl.classList.remove('hidden');
+        } else {
+          okEl.textContent = '✅ Account created! You can now login.';
+          okEl.classList.remove('hidden');
+          setTimeout(() => { switchTab('login'); document.getElementById('loginEmail').value = email; }, 1200);
+        }
+      }
+
+      async function doLogin() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const errEl = document.getElementById('loginError');
+        errEl.classList.add('hidden');
+
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          errEl.textContent = data.error;
+          errEl.classList.remove('hidden');
+        } else {
+          accessToken = data.data.accessToken;
+          currentUser = data.data.user;
+          localStorage.setItem('bmt_token', accessToken);
+          localStorage.setItem('bmt_user', JSON.stringify(currentUser));
+          showMainUI();
+        }
+      }
+
+      function doLogout() {
+        localStorage.removeItem('bmt_token');
+        localStorage.removeItem('bmt_user');
+        accessToken = null; currentUser = null;
+        document.getElementById('mainUI').classList.add('hidden');
+        document.getElementById('authModal').classList.remove('hidden');
+        document.getElementById('tbl').innerHTML = '';
+      }
+
+      function showMainUI() {
+        document.getElementById('authModal').classList.add('hidden');
+        document.getElementById('mainUI').classList.remove('hidden');
+        document.getElementById('userBadge').textContent = `👤 ${currentUser.name}`;
+        run(); 
+      }
+
+
       async function run() {
         const tbl = document.getElementById("tbl");
-        const res = await fetch("/seats");
+        const res = await fetch("/api/seats"); 
         const resarray = await res.json();
-        const j = resarray.sort((a, b) => a.id - b.id);
+        const j = (resarray.data || resarray).sort((a, b) => a.id - b.id);
         let tr;
         for (let i = 0; i < j.length; i++) {
           if (i % 8 === 0) tr = document.createElement("tr");
-
           const td = document.createElement("td");
-
-          // Base aesthetic classes - added 'relative group' for tooltip positioning
-          const baseClasses =
-            "w-32 h-32 rounded-2xl text-center align-middle text-2xl font-bold transition-all duration-300 select-none relative group";
-
+          const baseClasses = "w-32 h-32 rounded-2xl text-center align-middle text-2xl font-bold transition-all duration-300 select-none relative group";
           if (j[i].isbooked) {
             td.className = `${baseClasses} bg-rose-500/10 text-rose-500/60 border border-rose-500/20 cursor-not-allowed`;
             td.innerHTML = `
-                    <span class="relative z-10">${j[i].id}</span>
-                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-4 py-2 bg-slate-900 border border-slate-700 text-sm text-slate-300 rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap shadow-2xl z-50 pointer-events-none font-normal shadow-[0_10px_25px_rgba(0,0,0,0.5)]">
-                        Booked by: <span class="font-bold text-white ml-1">${j[i].name}</span>
-                        <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-[6px] border-transparent border-t-slate-700"></div>
-                        <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-[2px] border-[5px] border-transparent border-t-slate-900"></div>
-                    </div>
-                `;
+              <span class="relative z-10">${j[i].id}</span>
+              <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-4 py-2 bg-slate-900 border border-slate-700 text-sm text-slate-300 rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap shadow-2xl z-50 pointer-events-none font-normal shadow-[0_10px_25px_rgba(0,0,0,0.5)]">
+                Booked by: <span class="font-bold text-white ml-1">${j[i].name}</span>
+                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-[6px] border-transparent border-t-slate-700"></div>
+                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-[2px] border-[5px] border-transparent border-t-slate-900"></div>
+              </div>`;
           } else {
             td.className = `${baseClasses} bg-emerald-500 text-white border-2 border-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)] cursor-pointer hover:bg-emerald-400 hover:-translate-y-1.5 hover:shadow-[0_10px_25px_rgba(16,185,129,0.5)] active:scale-95 active:shadow-[0_0_10px_rgba(16,185,129,0.3)]`;
             td.innerHTML = `<span class="relative z-10">${j[i].id}</span>`;
           }
-
           td.addEventListener("click", async function (e) {
             const currentTd = e.currentTarget;
-            if (currentTd.classList.contains("cursor-not-allowed")) {
-              return; // Seat is already taken
-            }
-
+            if (currentTd.classList.contains("cursor-not-allowed")) return;
             try {
-              const id = j[i].id; // Safe from loop closure
-              const name = prompt("Enter your name");
-              if (!name) return;
-
-              const res = await fetch(`/${id}/${name}`, { method: "PUT" });
+              const id = j[i].id;
+         
+              const res = await fetch(`/api/${id}/${currentUser.name}`, {
+                method: "PUT",
+                headers: { Authorization: `Bearer ${accessToken}` }
+              });
               const data = await res.json();
-
               if (data.error) {
                 alert("FAILED! Couldn't book! already booked.");
               } else {
                 alert("Booked successfully!");
-                // Visually transition to booked state upon success
+         
                 currentTd.className = `${baseClasses} bg-rose-500/10 text-rose-500/60 border border-rose-500/20 cursor-not-allowed`;
                 currentTd.innerHTML = `
-                            <span class="relative z-10">${id}</span>
-                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-4 py-2 bg-slate-900 border border-slate-700 text-sm text-slate-300 rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap shadow-2xl z-50 pointer-events-none font-normal shadow-[0_10px_25px_rgba(0,0,0,0.5)]">
-                                Booked by: <span class="font-bold text-white ml-1">${name}</span>
-                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-[6px] border-transparent border-t-slate-700"></div>
-                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-[2px] border-[5px] border-transparent border-t-slate-900"></div>
-                            </div>
-                        `;
+                  <span class="relative z-10">${id}</span>
+                  <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-4 py-2 bg-slate-900 border border-slate-700 text-sm text-slate-300 rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap shadow-2xl z-50 pointer-events-none font-normal shadow-[0_10px_25px_rgba(0,0,0,0.5)]">
+                    Booked by: <span class="font-bold text-white ml-1">${currentUser.name}</span>
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-[6px] border-transparent border-t-slate-700"></div>
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-[2px] border-[5px] border-transparent border-t-slate-900"></div>
+                  </div>`;
               }
             } catch (ex) {
               alert("error booking " + ex);
@@ -135,7 +246,9 @@
           tbl.appendChild(tr);
         }
       }
-      run();
+
+
+      if (accessToken && currentUser) showMainUI();
     </script>
   </body>
 </html>
